@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Love Kotak Kotak + Musik</title>
+  <style>
+    body {
+      margin: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 160px);
+      background: pink;
+    }
+    .left, .right {
+      display: inline-block;
+    }
+    .left {
+      width: 170px;
+      height: 239px;
+      margin-right: -4px;
+    }
+    div > div {
+      display: block;
+      height: 34px;
+    }
+    div > div > div {
+      width: 30px;
+      height: 30px;
+      background-size: cover;
+      background-position: center;
+      display: inline-block;
+      float: right;
+      margin: 2px;
+      border-radius: 6px;
+    }
+    div.right > div > div {
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div class='left'>
+    <div style='padding-right:68px'><div></div><div></div></div>
+    <div style='padding-right:34px'><div></div><div></div><div></div><div></div></div>
+    <div><div></div><div></div><div></div><div></div><div></div></div>
+    <div><div></div><div></div><div></div><div></div><div></div></div>
+    <div><div></div><div></div><div></div><div></div></div>
+    <div><div></div><div></div><div></div></div>
+    <div><div></div><div></div></div>
+    <div><div></div></div>
+  </div>
+  <div class='right'>
+    <div style='padding-left:34px'><div></div><div></div></div>
+    <div><div></div><div></div><div></div><div></div></div>
+    <div><div></div><div></div><div></div><div></div></div>
+    <div><div></div><div></div><div></div><div></div></div>
+    <div><div></div><div></div><div></div></div>
+    <div><div></div><div></div></div>
+    <div><div></div></div>
+  </div>
+
+  <!-- Musik -->
+  <audio id="bg-music" autoplay loop>
+    <source src="music2.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      const elements = document.querySelectorAll('div>div>div');
+      const images = [
+        'meuni1.jpg',
+        'meuni2.jpg',
+        'meuni3.jpg',
+        'meuni4.jpg',
+        'meuni5.jpg',
+        'meuni6.jpg'
+      ];
+
+      // Set gambar acak ke tiap kotak
+      elements.forEach(el => {
+        const img = images[Math.floor(Math.random() * images.length)];
+        el.style.backgroundImage = `url('${img}')`;
+      });
+
+      // Animasi jatuh
+      function runAnimation() {
+        elements.forEach(function(element){
+            element.style.position = 'relative';
+            element.style.top = '-200px';
+            element.style.opacity = '0';
+            element.style.transition = 'all 1s ease';
+            
+            const wait = Math.floor((Math.random()*3000)+1);
+            setTimeout(function(){
+                element.style.top = '0px';
+                element.style.opacity = '1';
+            }, wait);
+        });
+      }
+      runAnimation();
+      setInterval(runAnimation, 5000);
+
+      // Musik autoplay di HP
+      const audio = document.getElementById('bg-music');
+      document.addEventListener('click', () => {
+        if (audio.paused) audio.play();
+      });
+    });
+  </script>
+</body>
+</html>
